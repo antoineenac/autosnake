@@ -34,6 +34,8 @@ class Environnement():
         self.refresh_env()
         
     def give_next_croquette(self,num,liste):
+        while(liste[num] in self.serpent.l_coord):
+            num+=1
         return(liste[num])
         
     def give_cood_croquette(self):
@@ -114,8 +116,10 @@ class Environnement():
                     self.env[x,y] = 1
                 if ([x,y] in self.serpent.l_coord):
                     self.env[x,y] = 2
-                if [x,y] == self.coord_croquette:
+                if ([x,y] == self.serpent.coord_head):
                     self.env[x,y] = 3
+                if [x,y] == self.coord_croquette:
+                    self.env[x,y] = -1
     
     def auto_play_from_data(self,X):
         for x in X:

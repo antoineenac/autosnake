@@ -3,9 +3,9 @@ import random as rd
 import copy
 import math
 
-env = Environnement.Environnement(5,[[1,1],[2,1],[2,2]],[2,3])
+#env = Environnement.Environnement(5,[[1,1],[2,1],[2,2]],[2,3])
 #env = Environnement.Environnement(5,[],[2,3])
-print(env)
+#print(env)
 def truncate_data(env,X):
     c = copy.deepcopy(env)
     X_out = []
@@ -31,7 +31,7 @@ def generation_population(env):
     
     return pop
 
-pop = generation_population(env)
+#pop = generation_population(env)
 #print(pop[:3])
 
 def give_score(env,X):
@@ -50,7 +50,7 @@ def give_all_score(env,pop):
         res.append(give_score(env,X))
     return(res)
     
-scores = give_all_score(env,pop)
+#scores = give_all_score(env,pop)
 #print(scores[:3])
 
 def give_best_elements(pop,scores):
@@ -60,7 +60,7 @@ def give_best_elements(pop,scores):
     res = [pop[k] for k in l_indices]
     return res,sort
 
-be,score = give_best_elements(pop,scores)
+#be,score = give_best_elements(pop,scores)
 
 
 def get_proba_mutation(i,longueur):
@@ -73,8 +73,8 @@ def gen_one_children(env,element):
     n_mut = 0
     longueur = len(element)
     deplacement = ['z','q','s','d']
-    children = []
-    while n_mut<101:
+    children = [element]
+    while n_mut<100:
         i = rd.randint(0,longueur)
         p = get_proba_mutation(i,longueur)
         e = rd.random()
@@ -108,15 +108,12 @@ def algo_gen(env):
     scores = give_all_score(env,pop)
     be,score = give_best_elements(pop,scores)
     all_children = gen_all_children(env,be)
-    max_iter = 100
+    max_iter = 50
     for k in range(max_iter):
         print(k)
         scores = give_all_score(env,all_children)
         be,score = give_best_elements(all_children,scores)
         all_children = gen_all_children(env,be)
     be,s = give_best_elements(all_children,scores)
-    return(be)
-    
-best = algo_gen(env)
-print(best[:5])
+    return(be,s)
     
