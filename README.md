@@ -1,6 +1,8 @@
 # autosnake
 a snake game that play itself the best it can
 
+Before all, I apologize to all non french speaker for the use of a combination of french and english name in my code. Sorry!
+
 The project is divided like this :
 
   - Serpent.py define the snake class. It contains a basic representation of the snake (list of coordinates, ...). 
