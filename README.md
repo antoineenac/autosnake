@@ -1,7 +1,7 @@
 # autosnake
-a snake game that play itself the best it can
+a snake game that plays itself the best it can
 
-Before all, I apologize to all non french speaker for the use of a combination of french and english name in my code. Sorry!
+Before all, I apologize to all non french speaker for the use of a combination of french and english name in my code, and english speakers for all the bad spelling that will follow. Sorry!
 
 The project is divided like this :
 
@@ -14,7 +14,7 @@ The project is divided like this :
   
   - AlgoGen.py gives a basic implementation of a genetic algorithm in order to get a "good" solution. The algorithm works like this :
           - Generation of a base population : vector of random deplacements
-          - Each element of the population get "truncated" : we cut the vector where it gives a wrong deplacement (a deplacement that induce a lost)
+          - Each element of the population get "truncated" : we cut the vector where it gives a wrong deplacement (hit an obstacle for instance)
           - for each element of the population, we compute a score that represent the quality of the sequence of deplacement. For now, the score is 
             (lenght of the snake, 1/lenght of the sequence of deplacement), and we use lexicographic order. Thus, we give higher score when the snake successfuly
             eat objectives (called croquettes in the game), and also higher score when it do so with the minimal number of step.
