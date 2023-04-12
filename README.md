@@ -18,15 +18,12 @@ The project is divided like this :
             eat objectives (called croquettes in the game), and also higher score when it do so with the minimal number of step.
           - We select the best element of the population, that is to say those with best score. This will be the base of our next population.
           - For each element in this selection, we create mutation. To do so, we randomly select a index (higher the index higher the probability), and truncate 
-            the element at this index. Then, we add random deplacement a the end of this truncated vector, and add this vector to the population. We do this a 
-            fixed number of time in order to have a "big enough" population.
-           
-          - We have created a new population with higher score than the previous one. We can repeat this operation a few time (10 to 50) to have a "good" solution
+            the element at this index. Then, we add random deplacement a the end of this truncated vector, and add this vector to the population. We do this a fixed number of time in order to have a "big enough" population.
+           - We have created a new population with higher score than the previous one. We can repeat this operation a few time (10 to 50) to have a "good" solution
             for a given environnement. The algorithm seems to converge and give good solution, but it takes quite a lot of time.
             
    - GenerationBDD.py runs the genetic algorithm with random environnements (fixed sized), in order to gather data to use for supervized learning. This data 
-     is either representation of the state by a vector (defined in Environnement.py, function get_q_etat) for simple neural network (or maybe deepQlearning in the
-     future), or a graphic representation of the environnement for CNNs or LSTMS. 
+     is either representation of the state by a vector (defined in Environnement.py, function get_q_etat) for simple neural network (or maybe deepQlearning in the future), or a graphic representation of the environnement for CNNs or LSTMS. 
      
 I am currently working on the simple neural network, and the next steps will certainly be deep learning with CNNs or LSTMS. I am aware that this type of problem
 is usually solved using reinforcement learning, but I wanted to explore the possibility to do otherwise first.
