@@ -108,7 +108,7 @@ def algo_gen(env):
     scores = give_all_score(env,pop)
     be,score = give_best_elements(pop,scores)
     all_children = gen_all_children(env,be)
-    max_iter = 50
+    max_iter = 10
     for k in range(max_iter):
         print(k)
         scores = give_all_score(env,all_children)

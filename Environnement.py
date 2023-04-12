@@ -33,6 +33,97 @@ class Environnement():
         
         self.refresh_env()
         
+        self.q_etat = self.get_q_etat() #for q learning
+        
+    def get_q_etat(self):
+        x_head,y_head = self.serpent.coord_head[0],self.serpent.coord_head[1]
+        
+        check_up = 1
+        if ([x_head - 1,y_head] in self.obstacles or [x_head - 1,y_head] in self.serpent.l_coord[1::]):
+            check_up = 0
+        check_down = 1
+        if ([x_head + 1,y_head] in self.obstacles or [x_head + 1,y_head] in self.serpent.l_coord[1::]):
+            check_down = 0
+        check_left = 1
+        if ([x_head,y_head - 1] in self.obstacles or [x_head,y_head - 1] in self.serpent.l_coord[1::]):
+            check_left = 0
+        check_right = 1
+        if ([x_head,y_head + 1] in self.obstacles or [x_head,y_head + 1] in self.serpent.l_coord[1::]):
+            check_right = 0
+        
+        check_vec = [check_up,check_down,check_right,check_left]
+        
+        def check_direction(head,before_head):
+            xh,yh = head[0],head[1]
+            
+            if len(before_head)<2:
+                return 'none'
+            x_bh,y_bh = before_head[1][0],before_head[1][1]
+            
+            dx = xh - x_bh
+            dy = yh - y_bh
+            
+            if dx==1:
+                return 'down'
+            if dx==-1:
+                return 'up'
+            if dy==1:
+                return 'right'
+            if dy==-1:
+                return 'left'
+        
+        direction = check_direction(self.serpent.coord_head,self.serpent.l_coord)
+        
+        gone_up,gone_down,gone_left,gone_right = 0,0,0,0
+        if direction=='up':
+            gone_up = 1
+        if direction=='down':
+            gone_down = 1
+        if direction=='right':
+            gone_right = 1
+        if direction=='left':
+            gone_left = 1
+            
+        gone_vec = [gone_up,gone_down,gone_left,gone_right]
+            
+        def croquette_direction(head,croquette):
+            xh,yh = head[0],head[1]
+            xc,yc = croquette[0],croquette[1]
+            
+            dx = xh - xc
+            dy = yh - yc
+            
+            if dx==0:
+                if dy==0:
+                    return 0,0,0,0
+                if dy>0:
+                    return 1,0,0,0
+                if dy<0:
+                    return 0,1,0,0
+            
+            if dx>0:
+                if dy==0:
+                    return 0,0,0,1
+                if dy>0:
+                    return 1,0,0,1
+                if dy<0:
+                    return 0,1,0,1
+            else:
+                if dy==0:
+                    return 0,0,1,0
+                if dy>0:
+                    return 1,0,1,0
+                if dy<0:
+                    return 0,1,1,0
+        
+        going_left,going_right,going_down,going_up = croquette_direction(self.serpent.coord_head,self.coord_croquette)
+        going_vec = [going_up,going_down,going_right,going_left]
+        
+        
+        return(check_vec + gone_vec + going_vec)
+        #return(check_vec + going_vec)
+        
+            
     def give_next_croquette(self,num,liste):
         while(liste[num] in self.serpent.l_coord):
             num+=1
@@ -105,6 +196,7 @@ class Environnement():
                 else:
                     if [x,y] in self.serpent.l_coord[1::]:
                         self.etat_global = False
+        self.q_etat = self.get_q_etat()
     
             
     def refresh_env(self):
@@ -132,9 +224,9 @@ class Environnement():
         while i<100:
             print(self.env)
             self.one_deplacement()
-            print(self.serpent.taille)
-            #print(self.evaluate_complexity_path())
+            #print(self.serpent.taille)
             self.check_etat()
+            print(self.q_etat)
             if not self.etat_global:
                 break
             self.refresh_env()
@@ -143,6 +235,8 @@ class Environnement():
             print("you won")
         else:
             print("you lost")
+            
+            
             
             
 #env = Environnement(5,[[1,1],[2,1],[2,2]],[2,3])

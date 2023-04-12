@@ -2,6 +2,7 @@ import AlgoGen
 import Environnement
 import copy
 import random as rd
+import numpy as np
 
 
 def get_differents(pop):
@@ -19,16 +20,18 @@ def gen_database_from_env(env):
     best,s = AlgoGen.algo_gen(copy_env)
     differents_best = get_differents(best)
     Xs,Ys = [], []
+    Xs_nn = []
     for play in differents_best:
         c = copy.deepcopy(env)
         for inputs in play:
             envi = copy.deepcopy(c.env)
             Xs.append(envi)
+            Xs_nn.append(c.q_etat)
             Ys.append(inputs)
             c.one_deplacement_auto(inputs)
             c.check_etat()
             c.refresh_env()
-    return(Xs,Ys)    
+    return(Xs,Xs_nn,Ys)    
     
 #Xs,Ys = gen_database_from_env(env)
 #print(Xs[:3])
@@ -73,18 +76,24 @@ def generation_environnements(taille):
 
 def generation_database(nombre_env,taille):
     X = []
+    X_nn = []
     Y = []
     
     for i in range(nombre_env):
         print(i)
         env = generation_environnements(taille)
-        Xs,Ys = gen_database_from_env(env)
-        for x in Xs:
-            X.append(x)
-        for y in Ys:
-            Y.append(y)
+        Xs,Xs_nn,Ys = gen_database_from_env(env)
+        X.append(Xs)
+        X_nn.append(Xs_nn)
+        Y.append(Ys)
         
-    return(X,Y)
+    return(X,X_nn,Y)
     
-X,Y = generation_database(2,5)
+X,X_nn,Y = generation_database(2,5)
+X = np.array(X)
+Y = np.array(Y)
+#np.save("X2.npy",X)
+#np.save("Y2.npy",Y)
+
+
 
