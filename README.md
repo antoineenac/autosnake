@@ -12,7 +12,7 @@ The project is divided like this :
     and by using the "boucle" function. At each step, you have to play "z" to go up, "q" to go left, "s" to go down and "d" to go right (the game was created 
     whith an azerty keyboard...). The key "k" stop the game.
   
-  - AlgoGen.py gives a basic implementation of an genetic algorithm in order to get a "good" solution. The algorithm works like this :
+  - AlgoGen.py gives a basic implementation of a genetic algorithm in order to get a "good" solution. The algorithm works like this :
           - Generation of a base population : vector of random deplacements
           - Each element of the population get "truncated" : we cut the vector where it gives a wrong deplacement (a deplacement that induce a lost)
           - for each element of the population, we compute a score that represent the quality of the sequence of deplacement. For now, the score is 
