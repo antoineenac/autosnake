@@ -24,7 +24,8 @@ The project is divided like this :
             
    - GenerationBDD.py runs the genetic algorithm with random environnements (fixed sized), in order to gather data to use for supervized learning. This data 
      is either representation of the state by a vector (defined in Environnement.py, function get_q_etat) for simple neural network (or maybe deepQlearning in the future), or a graphic representation of the environnement for CNNs or LSTMS. 
-     
+ 
+The files that are not mentionned here are not finished yet. I also use thise repo to transfer my work between two computers.
 I am currently working on the simple neural network, and the next steps will certainly be deep learning with CNNs or LSTMS. I am aware that this type of problem
 is usually solved using reinforcement learning, but I wanted to explore the possibility to do otherwise first.
 
