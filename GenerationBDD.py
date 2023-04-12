@@ -89,11 +89,13 @@ def generation_database(nombre_env,taille):
         
     return(X,X_nn,Y)
     
-X,X_nn,Y = generation_database(2,5)
+X,X_nn,Y = generation_database(50,7)
 X = np.array(X)
+X_nn = np.array(X_nn)
 Y = np.array(Y)
-#np.save("X2.npy",X)
-#np.save("Y2.npy",Y)
+np.save("X_7.npy",X)
+np.save("X_7_nn.npy",X_nn)
+np.save("Y_7.npy",Y)
 
 
 
